@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block bodyblock %}
+    
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <br><br>
+                    <h3 class="display-4">Gender Classification</h3>
+                    <p><strong>Upload</strong> any image, our model will detect face first and then gender based on face (Male or Female)</p>
+                    <form action="/app/gender/" method="POST" enctype="multipart/form-data">
+                        <div class="input-group">
+                            <input type="file" class="form-control" name="image_name" required>
+                            <input type="submit" value="Upload" class="btn btn-outline-primary" 
+                            style="background-color: #214ED3; color: white">
+                        </div>
+                    </form>
+            </div>
+            
+            <div class="col-8">
+                <br><br>
+                {% if fileupload %}
+
+                    <h3 class="display-9">Predicted Image</h3>                
+                    <img class="image-fluid" src="/static/predict/{{ img_name }}" alt="" height="300">
+
+                    <br><br>
+                    <table class="table table-hover table-striped">
+                        <tr>
+                            <th>Detection Face</th>
+                            <th>Eigen Image</th>
+                            <th>Predicted Gender</th>
+                            <th>Score</th>
+                        </tr>                        
+                            {% for element in results %}
+                            <tr>
+                                <td>
+                                    <img class="image-fluid" src="/static/predict/{{ element[0] }} " alt="" height="100">                                                                      
+                                    
+                                </td>
+                                <td>
+                                    <img class="image-fluid" src="/static/predict/{{ element[1] }} " alt="" height="100">                                     
+                                    
+                                </td>
+                                <td>
+                                    {{ element[2] }}                                    
+                                    
+                                </td>
+                                <td>
+                                    {{ element[3] }}                         
+                                    
+                                </td>
+                            </tr>                         
+                            {% endfor %}                                            
+                    </table>                
+                {% endif %}                
+            </div>
+        </div>
+    </div>
+{% endblock %}
