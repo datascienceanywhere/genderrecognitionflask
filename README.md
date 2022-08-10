@@ -1,3 +1,3 @@
-### Training Face Recognition Model
+### Face Recognition Web Application
 
 
